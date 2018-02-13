@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper 설정 -->
+<mapper namespace="MemberMapper">
+	<!-- Query -->
+	<select id="GetMemberInfo" parameterType="String" resultType="java.util.HashMap">
+		SELECT * FROM member 
+		WHERE userid = #{userid}
+	</select>
+	
+	<select id="GetMemberList" resultType="java.util.HashMap">
+		SELECT * FROM member
+	</select>
+	
+	<insert id="RegisterMemberInfo" parameterType="java.util.HashMap">
+		INSERT INTO member(userid, name, email, pwd) 
+		VALUES(#{userid}, #{name}, #{email}, #{pwd})
+	</insert>
+	
+	<update id="UpdateMemberInfo" parameterType="java.util.HashMap">
+		UPDATE member set
+        userid = #{userid}, name = #{name}, email = #{email}, pwd = #{pwd}
+        where userid = #{userid}
+	</update>
+	
+	<delete id="DeleteMember" parameterType="java.util.HashMap">
+		DELETE * FROM member 
+		WHERE userid = #{userid}
+	</delete>
+
+</mapper>
