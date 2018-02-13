@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper 설정 -->
+<mapper namespace="PostMapper">
+	<!-- Query -->
+	
+	<!-- 모든 게시물의 정보를 가져오는 쿼리 -->
+	<select id="GetPostList" resultType="java.util.HashMap">
+		SELECT * FROM testdatatable order by idx desc
+	</select>
+	
+	<!-- 파라미터로 전달받은 작성한 게시물 정보를 insert하는 쿼리 -->
+	<insert id="WritePostInfo" parameterType="java.util.HashMap">
+		INSERT INTO testdatatable(title, name, content, date, hit)
+		VALUES(#{title}, #{name}, #{content}, now(), 0)
+	</insert>
+	
+	<!-- 파라미터로 전달받은 idx에 해당하는 게시물 정보를 조회하기 위한 쿼리 -->
+	<select id="GetPostInfo" parameterType="String" resultType="java.util.HashMap">
+		SELECT * FROM testdatatable
+		WHERE idx = #{idx}
+	</select>
+	
+	<!-- 파라미터로 전달받은 idx에 해당하는 게시물 정보를 update하는 쿼리 -->
+	<update id="UpdatePostInfo" parameterType="java.util.HashMap">
+		UPDATE testdatatable SET
+		title=#{title}, name=#{name}, content=#{content}
+		WHERE idx=#{idx}
+	</update>
+	
+	<!-- 파라미터로 전달받은 idx에 해당하는 게시물을 delete하는 쿼리 -->
+	<delete id="DeletePostInfo" parameterType="String">
+		DELETE FROM testdatatable
+		WHERE idx = #{idx}
+	</delete>
+	
+</mapper>

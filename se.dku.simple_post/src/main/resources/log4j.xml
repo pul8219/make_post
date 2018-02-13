@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<!-- 콘솔 로그 -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c:%L - %m%n" />
+		</layout>
+	</appender>
+	<!-- 날짜별 로그 -->
+	<appender name="loggingfile" class="org.apache.log4j.DailyRollingFileAppender">
+		<!-- 로그 파일 생성위치 -->
+		<param name="file" value="C:/logger/Log4j/logfile.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'-'yyyy-MM-dd-a" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d] %-5p: %c %M(%F:%L) - %m%n" />
+			<!-- 로그의 레이아웃 [발생시간] priority: 카테고리 메소드명(로깅발생파일명:로깅발생라인) - 로그내용\n -->
+			<!-- {yyyy-MM-dd HH:mm:ss.SSS} -->
+		</layout>
+	</appender>
+	
+	<!-- Application Loggers -->
+	<!-- 코드내에 쓰인 log 파일에 찍게 하였음 (콘솔에도 기본적으로 찍힘-root의 기본설정이 console이기 때문)-->
+	<logger name="se.dku.simple">
+		<level value="debug" />
+		<!-- <appender-ref ref="loggingfile" /> -->
+	</logger>
+	
+	
+	<!-- 3rdparty Loggers -->
+	<!-- 이 로그 내용들 파일에도 찍고 싶으면 appender 추가하면 됨 -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+	
+
+	<!-- 기본적으로 출력될 로거 -->
+	<!-- Root Logger -->
+	<root>
+		<priority value="info" />
+		<appender-ref ref="console" />
+	</root>
+	
+</log4j:configuration>
